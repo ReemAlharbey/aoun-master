@@ -9,3 +9,5 @@ TextEditingController emailLogController = TextEditingController();
 TextEditingController passLogController = TextEditingController();
 TextEditingController phoneController = TextEditingController();
 TextEditingController iDController = TextEditingController();
+TextEditingController chairBumberController = TextEditingController();
+TextEditingController userRequestNumberController = TextEditingController();

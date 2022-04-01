@@ -3,9 +3,14 @@
 import 'package:aoun/Widget/Colors.dart';
 import 'package:aoun/Widget/Icons.dart';
 import 'package:aoun/Widget/widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
+
+import '../../TransilatClass/getTranselaitData.dart';
+import '../../Widget/AwesomDialog.dart';
 
 class requestWheelchar extends StatefulWidget {
   requestWheelchar({Key key}) : super(key: key);
@@ -23,8 +28,10 @@ class _requestWheelcharState extends State<requestWheelchar> {
 
   var contriy, street, name, locality;
   bool show = false;
+  GlobalKey<FormState> reqestKey = GlobalKey();
+  var userRequestType, userChairNumber;
   String locationAdrress = '';
-  List<String> item = ["يدون مساعد", "مساعد"];
+  List<String> item = ["بدون مساعد", "مساعد"];
   List<String> chair = ["1", "2", "3"];
   TimeOfDay selectedstarTime = TimeOfDay.now();
   TimeOfDay selectedEndTime = TimeOfDay.now();
@@ -45,25 +52,63 @@ class _requestWheelcharState extends State<requestWheelchar> {
           drowText(context, "طلب كرسي متحرك", 18, color: deepGreen),
           Padding(
             padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 40.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Image(image: AssetImage("assets/image/logo.png"),height: 150.h,width: 150.w),
-                drowMenu("نوع الطلب", requestType, item),
-                SizedBox(height: 10.h),
-                drowMenu("عدد الكراسي", chairNumber, chair),
-                SizedBox(height: 10.h),
-                showStardTime(),
-                SizedBox(height: 10.h),
-                showReturnTime(),
-                SizedBox(height: 10.h),
-                showLocation(),
-                SizedBox(height: 10.h),
-                viewStringLocationAddress(),
-                SizedBox(height: 10.h),
-                drowButtoms(context, "رفع الطلب", 12, white, () {},
-                    backgrounColor: deepGreen),
-              ],
+            child: Form(
+              key: reqestKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  drowMenu("نوع الطلب", requestType, item, (value) {
+                    setState(() {
+                      userRequestType = value;
+                    });
+                    print(userRequestType);
+                  }, (value) {
+                    if (value == null) {
+                      return translatedData(context, "Fill in the field");
+                    } else {
+                      return null;
+                    }
+                  }),
+                  //---------------------------------------------------------
+                  SizedBox(height: 10.h),
+                  drowMenu("عدد الكراسي", chairNumber, chair, (value) {
+                    setState(() {
+                      userChairNumber = value;
+                    });
+                    print(userChairNumber);
+                  }, (value) {
+                    if (value == null) {
+                      return translatedData(context, "Fill in the field");
+                    } else {
+                      return null;
+                    }
+                  }),
+                  //---------------------------------------------------------
+                  SizedBox(height: 10.h),
+                  showStardTime(),
+                  SizedBox(height: 10.h),
+                  showReturnTime(),
+                  SizedBox(height: 10.h),
+                  showLocation(),
+                  SizedBox(height: 10.h),
+                  viewStringLocationAddress(),
+                  SizedBox(height: 10.h),
+                  drowButtoms(context, "رفع الطلب", 12, white, () {
+                    requestWheelChar(
+                        userRequestType,
+                        userChairNumber,
+                        format_Star_Time,
+                        selectedstarTime.hour,
+                        selectedstarTime.minute,
+                        format_End_Time,
+                        selectedEndTime.hour,
+                        selectedEndTime.minute,
+                        locationAdrress,
+                        latitude,
+                        longtitude);
+                  }, backgrounColor: deepGreen),
+                ],
+              ),
             ),
           ),
         ],
@@ -130,18 +175,18 @@ class _requestWheelcharState extends State<requestWheelchar> {
     try {
       List<Placemark> placemark = await placemarkFromCoordinates(lat, long);
 
-    setState(() {
-      name = placemark[0].subLocality;
-      street = placemark[0].thoroughfare;
-      contriy = placemark[0].country;
-      locality = placemark[0].locality;
-      locationAdrress = "$contriy - $locality - ${placemark[0].administrativeArea}";
- 
-      print(locationAdrress);
+      setState(() {
+        name = placemark[0].subLocality;
+        street = placemark[0].thoroughfare;
+        contriy = placemark[0].country;
+        locality = placemark[0].locality;
+        locationAdrress =
+            "$contriy - $locality - ${placemark[0].administrativeArea}";
 
-      print(locationAdrress);
-    });
-  
+        print(locationAdrress);
+
+        print(locationAdrress);
+      });
     } catch (e) {
       print(e);
     }
@@ -161,7 +206,7 @@ class _requestWheelcharState extends State<requestWheelchar> {
             SizedBox(
               width: 4,
             ),
-           GestureDetector(
+            GestureDetector(
               onTap: () {
                 setState(() {
                   _selectStarTime(context);
@@ -227,8 +272,7 @@ class _requestWheelcharState extends State<requestWheelchar> {
     if (timeOfDay != null) {
       setState(() {
         selectedstarTime = timeOfDay;
-        format_Star_Time =
-            "${selectedstarTime.format(context)} ";
+        format_Star_Time = "${selectedstarTime.format(context)} ";
         return format_Star_Time;
       });
     }
@@ -241,16 +285,63 @@ class _requestWheelcharState extends State<requestWheelchar> {
       context: context,
       initialTime: selectedEndTime,
       initialEntryMode: TimePickerEntryMode.dial,
-
     );
     if (timeOfDay != null) {
       setState(() {
         selectedEndTime = timeOfDay;
-        format_End_Time =
-            "${selectedEndTime.format(context)} ";
+        format_End_Time = "${selectedEndTime.format(context)} ";
         return format_End_Time;
       });
     }
     return null;
+  }
+
+  Future<void> requestWheelChar(
+      userRequestType,
+      userChairNumber,
+      String formatStarTime,
+      int hour,
+      int minute,
+      String formatEndTime,
+      int hour2,
+      int minute2,
+      String locationAdrress,
+      latitude,
+      longtitude) async {
+    if (reqestKey.currentState.validate() == false ||
+        formatStarTime.isEmpty ||
+        formatEndTime.isEmpty) {
+      awesomDialog(context, "Empty data", "empty");
+    } else {
+      awesomDialog(context, 'Request a wheelchair', 'wating');
+
+      await FirebaseFirestore.instance.collection('product').add({
+        'userId': FirebaseAuth.instance.currentUser.uid,
+        'userRequestType': userRequestType,
+        'userChairNumber': userChairNumber,
+        'formatStarTime': formatStarTime,
+        'Starthour': hour,
+        'Starminute': minute,
+        'Endthour': hour2,
+        'Endminute': minute2,
+        'locationAdrress': locationAdrress,
+        'latitude': latitude,
+        'longtitude': longtitude,
+      }).then((value) {
+        Navigator.pop(context);
+        awesomDialog(
+          context,
+          "Process completed",
+          "successfully",
+        );
+      }).catchError((e) {
+        Navigator.pop(context);
+        awesomDialog(
+          context,
+          "Connection error",
+          "connectionError",
+        );
+      });
+    }
   }
 }

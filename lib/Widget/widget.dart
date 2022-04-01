@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 var latitude, longtitude;
- var error;
+var error;
 Widget drowText(
   context,
   String text,
@@ -55,7 +55,7 @@ Widget drowContiner(double height, double width, double marginL, double marginR,
     margin: EdgeInsets.only(
         left: marginL.w, right: marginR.w, top: marginT.h, bottom: marginB.h),
     decoration: BoxDecoration(
-      border: border,
+        border: border,
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(bottomLeft),
             topRight: Radius.circular(topRight),
@@ -162,7 +162,8 @@ Widget drowTextField(
     {Widget suffixIcon,
     int max = 1,
     int min = 1,
-    inputFormatters,keyboardType,
+    inputFormatters,
+    keyboardType,
     void Function() onTap}) {
   return TextFormField(
     obscureText: hintPass,
@@ -171,9 +172,9 @@ Widget drowTextField(
     maxLines: max,
     onTap: onTap,
     controller: mycontroller,
-      inputFormatters: inputFormatters,
-      keyboardType: keyboardType,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+    inputFormatters: inputFormatters,
+    keyboardType: keyboardType,
+    autovalidateMode: AutovalidateMode.onUserInteraction,
     style: TextStyle(color: deepGreen, fontSize: 12.sp),
     decoration: InputDecoration(
         isDense: true,
@@ -213,47 +214,44 @@ Widget langButtom(context, {IconData icon}) {
 }
 
 // combo box============================================================abstract
-Widget drowMenu(String insiValue, IconData icon, List<String> item) {
+Widget drowMenu(
+    String insiValue, IconData icon, List<String> item, onchanged, validator) {
   return Container(
     color: gray,
     child: DropdownButtonFormField<String>(
-      // validator: validator,
-      //elevation: 20,
-
-      hint: Text(
-        "$insiValue",
-        style: TextStyle(
-          color: deepGreen,
-          fontSize: 12.sp,
-
+       autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: validator,
+        hint: Text(
+          "$insiValue",
+          style: TextStyle(
+            color: deepGreen,
+            fontSize: 12.sp,
+          ),
         ),
-      ),
-      dropdownColor: white,
-
-      items: item
-          .map((type) => DropdownMenuItem(
-                //  alignment: Alignment.center,
-                value: type,
-                child: Text(
-                  type,
-                  style: TextStyle(
-                    color: deepGreen,
-                    fontSize: 13.sp,
+        dropdownColor: white,
+        items: item
+            .map((type) => DropdownMenuItem(
+                  //  alignment: Alignment.center,
+                  value: type,
+                  child: Text(
+                    type,
+                    style: TextStyle(
+                      color: deepGreen,
+                      fontSize: 13.sp,
+                    ),
                   ),
-                ),
-              ))
-          .toList(),
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(8.0),
-        prefixIcon: Icon(icon, color: deepGreen, size: 25),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+                ))
+            .toList(),
+            
+        decoration: InputDecoration(
+          
+          contentPadding: const EdgeInsets.all(8.0),
+          prefixIcon: Icon(icon, color: deepGreen, size: 25),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
         ),
-      ),
-      onChanged: (catogary) {
-        print(catogary);
-      },
-    ),
+        onChanged: onchanged),
   );
 }
 
@@ -262,7 +260,6 @@ showCurrentLocation() async {
   dynamic currentLocation = LocationData;
 
   Location location = new Location();
- 
 
   try {
     currentLocation = await location.getLocation();
