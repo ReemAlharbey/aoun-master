@@ -5,6 +5,7 @@ import 'package:aoun/Widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: camel_case_types
 class donateWheelchar extends StatefulWidget {
   donateWheelchar({Key key}) : super(key: key);
 
@@ -12,6 +13,7 @@ class donateWheelchar extends StatefulWidget {
   State<donateWheelchar> createState() => _donateWheelcharState();
 }
 
+// ignore: camel_case_types
 class _donateWheelcharState extends State<donateWheelchar> {
   @override
   Widget build(BuildContext context) {

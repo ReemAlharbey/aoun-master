@@ -1,11 +1,9 @@
-
 import 'package:aoun/Widget/Colors.dart';
 import 'package:flutter/material.dart';
-
-import 'MyOrders.dart';
 import 'RequestWheelchair.dart';
 import 'donateWheelchair.dart';
 import 'notification.dart';
+// ignore: camel_case_types
 class userHomePage extends StatefulWidget {
   userHomePage({Key key}) : super(key: key);
 
@@ -13,9 +11,9 @@ class userHomePage extends StatefulWidget {
   State<userHomePage> createState() => _userHomePageState();
 }
 
+// ignore: camel_case_types
 class _userHomePageState extends State<userHomePage> {
-  @override
-   int _selectedIndex = 1;
+  int _selectedIndex = 1;
   final List page = [
     
     donateWheelchar(),

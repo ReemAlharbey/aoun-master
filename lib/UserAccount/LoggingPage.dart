@@ -21,7 +21,7 @@ class LoggingPage extends StatefulWidget {
 class _LoggingPageState extends State<LoggingPage> {
   @override
   Widget build(BuildContext context) {
-    return  (
+     return  (
       Scaffold(
         body: Container(
           color: deepGreen,

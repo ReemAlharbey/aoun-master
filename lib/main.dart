@@ -1,19 +1,23 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'TransilatClass/getTranselaitData.dart';
 import 'TransilatClass/setLocale.dart';
 import 'Welcom page/frontend.dart';
-import 'home/userHomePage/userHomePage.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(
-      DevicePreview(
-        enabled: true,
-        builder: (context) => MyApp(), // Wrap your app
-      ),
-    );
+// void main() => runApp(
+//       DevicePreview(
+//         enabled: true,
+//         builder: (context) => MyApp(), // Wrap your app
+//       ),
+//     );
+void main()async {
+  runApp(MyApp());
+    WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp();
+}
 class MyApp extends StatefulWidget {
   static void setLocale(BuildContext context, Locale locale) {
     _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
@@ -94,7 +98,11 @@ class _MyAppState extends State<MyApp> {
         },
         debugShowCheckedModeBanner: false,
         //اظهار الشاشه الولي وفقا لحاله المستخدم, هل قام بالتسجيل مسلقا ام اول مره يظهر التطبيق
-        home: _local == null ? WelcomePage() : userHomePage(),
+        home:
+        // _local == null ?
+          WelcomePage()
+         // :
+        // userHomePage(),
       ),
     );
   }

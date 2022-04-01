@@ -162,6 +162,7 @@ Widget drowTextField(
     {Widget suffixIcon,
     int max = 1,
     int min = 1,
+    inputFormatters,keyboardType,
     void Function() onTap}) {
   return TextFormField(
     obscureText: hintPass,
@@ -170,6 +171,9 @@ Widget drowTextField(
     maxLines: max,
     onTap: onTap,
     controller: mycontroller,
+      inputFormatters: inputFormatters,
+      keyboardType: keyboardType,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
     style: TextStyle(color: deepGreen, fontSize: 12.sp),
     decoration: InputDecoration(
         isDense: true,
@@ -263,8 +267,8 @@ showCurrentLocation() async {
 
     latitude = currentLocation.latitude;
     longtitude = currentLocation.longitude;
-    print(latitude);
-    print(longtitude);
+    print("latitude is------------------------$latitude");
+    print("longtitude is------------------------$longtitude");
   } on PlatformException catch (e) {
     if (e.code == 'PERMISSION_DENIED') {
       error = 'Permission denied';

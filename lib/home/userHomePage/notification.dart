@@ -9,6 +9,7 @@ class notification extends StatefulWidget {
   State<notification> createState() => _notificationState();
 }
 
+// ignore: camel_case_types
 class _notificationState extends State<notification> {
   @override
   Widget build(BuildContext context) {

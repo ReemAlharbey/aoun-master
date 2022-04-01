@@ -1,7 +1,6 @@
-import 'package:aoun/TransilatClass/getTranselaitData.dart';
-import 'package:aoun/UserAccount/LoggingPage.dart';
+// ignore_for_file: camel_case_types
+
 import 'package:aoun/Widget/Colors.dart';
-import 'package:aoun/Widget/Controller.dart';
 import 'package:aoun/Widget/Icons.dart';
 import 'package:aoun/Widget/widget.dart';
 import 'package:flutter/material.dart';
@@ -128,19 +127,24 @@ class _requestWheelcharState extends State<requestWheelchar> {
 
   //get location address-----------------------------------------------------------
   _getLocationAddress(lat, long) async {
-    List<Placemark> placemark = await placemarkFromCoordinates(lat, long);
+    try {
+      List<Placemark> placemark = await placemarkFromCoordinates(lat, long);
 
     setState(() {
       name = placemark[0].subLocality;
       street = placemark[0].thoroughfare;
       contriy = placemark[0].country;
       locality = placemark[0].locality;
-      locationAdrress = "$contriy - $locality - $name - $street";
-
+      locationAdrress = "$contriy - $locality - ${placemark[0].administrativeArea}";
+ 
       print(locationAdrress);
 
       print(locationAdrress);
     });
+  
+    } catch (e) {
+      print(e);
+    }
   }
 
 //show receve time------------------------------------------------------------
