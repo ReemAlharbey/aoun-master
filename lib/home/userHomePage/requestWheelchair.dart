@@ -74,14 +74,14 @@ class _requestWheelcharState extends State<requestWheelchar> {
 //drow location continer------------------------------------------------------------
   Widget showLocation() {
     return drowContiner(
-        50,
+        43,
         double.infinity,
         0,
         0,
         gray,
         Row(
           children: [
-            Icon(location, size: 26.sp, color: deepGreen),
+            Icon(location, size: 25.sp, color: deepGreen),
             SizedBox(
               width: 4,
             ),
@@ -150,14 +150,14 @@ class _requestWheelcharState extends State<requestWheelchar> {
 //show receve time------------------------------------------------------------
   Widget showStardTime() {
     return drowContiner(
-        50,
+        43,
         double.infinity,
         0,
         0,
         gray,
         Row(
           children: [
-            Icon(starTime, size: 26.sp, color: deepGreen),
+            Icon(starTime, size: 25.sp, color: deepGreen),
             SizedBox(
               width: 4,
             ),
@@ -185,14 +185,14 @@ class _requestWheelcharState extends State<requestWheelchar> {
 //show receve time------------------------------------------------------------
   Widget showReturnTime() {
     return drowContiner(
-        50,
+        43,
         double.infinity,
         0,
         0,
         gray,
         Row(
           children: [
-            Icon(endTime, size: 26.sp, color: deepGreen),
+            Icon(endTime, size: 25.sp, color: deepGreen),
             SizedBox(
               width: 4,
             ),

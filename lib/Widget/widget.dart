@@ -215,6 +215,7 @@ Widget langButtom(context, {IconData icon}) {
 // combo box============================================================abstract
 Widget drowMenu(String insiValue, IconData icon, List<String> item) {
   return Container(
+    color: gray,
     child: DropdownButtonFormField<String>(
       // validator: validator,
       //elevation: 20,
@@ -223,7 +224,8 @@ Widget drowMenu(String insiValue, IconData icon, List<String> item) {
         "$insiValue",
         style: TextStyle(
           color: deepGreen,
-          fontSize: 13.sp,
+          fontSize: 12.sp,
+
         ),
       ),
       dropdownColor: white,
