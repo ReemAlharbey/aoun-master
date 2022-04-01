@@ -1,3 +1,4 @@
+import 'package:aoun/TransilatClass/getTranselaitData.dart';
 import 'package:aoun/Widget/Colors.dart';
 import 'package:aoun/Widget/widget.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ awesomDialog(context, String title, String content,
                 child: Center(
                   child: drowText(
                     context,
-                    title,
+                    translatedData(context, title),
                     15,
                   color: deepGreen,
                   fontWeight: FontWeight.bold
@@ -34,7 +35,7 @@ awesomDialog(context, String title, String content,
 
           content: content != "wating"
               ? SizedBox(
-                  height: 140.h,
+                  height: 50.h,
                   width: double.infinity,
                   child: Column(
                     children: [
@@ -45,7 +46,7 @@ awesomDialog(context, String title, String content,
                         child: Center(
                           child: drowText(
                             context,
-                            content,
+                           translatedData(context, content) ,
                             13,
                             color:black,
                           ),
