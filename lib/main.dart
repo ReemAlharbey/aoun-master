@@ -1,3 +1,4 @@
+import 'package:aoun/UserAccount/SingUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,12 +15,13 @@ import 'home/userHomePage/userHomePage.dart';
 //         builder: (context) => MyApp(), // Wrap your app
 //       ),
 //     );
-void main()async {
+void main() async {
   runApp(MyApp());
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
 }
+
 class MyApp extends StatefulWidget {
   static void setLocale(BuildContext context, Locale locale) {
     _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
@@ -67,45 +69,40 @@ class _MyAppState extends State<MyApp> {
       //screen size
       designSize: const Size(360, 640),
       builder: () => MaterialApp(
-        title: "Aoun",
+          title: "Aoun",
 //اختيار نوع الخط وفقا للغه المختارة-------------------------
-        theme: ThemeData(
-          fontFamily: selectLang ? "Cairo" : "OpenSans",
-          primarySwatch: Colors.green,
-        ),
+          theme: ThemeData(
+            fontFamily: selectLang ? "Cairo" : "OpenSans",
+            primarySwatch: Colors.green,
+          ),
 
 //locale  هو كود اللغه المختارة اما ar-SA or en-US
-        locale: _local,
-        supportedLocales: [
-          Locale('en', 'US'),
-          Locale('ar', 'SA'),
-        ],
+          locale: _local,
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('ar', 'SA'),
+          ],
 
 //تغير اتجاهات العناصر في الشاشه حسب اللغة--------------
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          SetLocalization.localizationsDelegate
-        ],
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            SetLocalization.localizationsDelegate
+          ],
 // التاكد من ان اللغه المختارة مدعومة في الجهاز
-        localeResolutionCallback: (deviceLocal, supportedLocales) {
-          for (var local in supportedLocales) {
-            if (local.languageCode == deviceLocal.languageCode &&
-                local.countryCode == deviceLocal.countryCode) {
-              return deviceLocal;
+          localeResolutionCallback: (deviceLocal, supportedLocales) {
+            for (var local in supportedLocales) {
+              if (local.languageCode == deviceLocal.languageCode &&
+                  local.countryCode == deviceLocal.countryCode) {
+                return deviceLocal;
+              }
             }
-          }
-          return supportedLocales.first;
-        },
-        debugShowCheckedModeBanner: false,
-        //اظهار الشاشه الولي وفقا لحاله المستخدم, هل قام بالتسجيل مسلقا ام اول مره يظهر التطبيق
-        home:
-         _local == null ?
-          WelcomePage()
-          :
-         userHomePage(),
-      ),
+            return supportedLocales.first;
+          },
+          debugShowCheckedModeBanner: false,
+          //اظهار الشاشه الولي وفقا لحاله المستخدم, هل قام بالتسجيل مسلقا ام اول مره يظهر التطبيق
+          home: WelcomePage()),
     );
   }
 }

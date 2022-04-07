@@ -20,10 +20,13 @@ class requestWheelchar extends StatefulWidget {
 }
 
 class _requestWheelcharState extends State<requestWheelchar> {
+  var userId;
   @override
   void initState() {
     super.initState();
     showCurrentLocation();
+    userId = FirebaseAuth.instance.currentUser.uid;
+    print(userId);
   }
 
   var contriy, street, name, locality;
@@ -315,8 +318,8 @@ class _requestWheelcharState extends State<requestWheelchar> {
     } else {
       awesomDialog(context, 'Request a wheelchair', 'wating');
 
-      await FirebaseFirestore.instance.collection('product').add({
-        'userId': FirebaseAuth.instance.currentUser.uid,
+      await FirebaseFirestore.instance.collection('userRequests').add({
+        'userId':userId,
         'userRequestType': userRequestType,
         'userChairNumber': userChairNumber,
         'formatStarTime': formatStarTime,
