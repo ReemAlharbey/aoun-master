@@ -96,7 +96,7 @@ class _requestWheelcharState extends State<requestWheelchar> {
                   SizedBox(height: 10.h),
                   viewStringLocationAddress(),
                   SizedBox(height: 10.h),
-                  drowButtoms(context, "رفع الطلب", 12, white, () {
+                  drowButtoms(context,translatedData(context, "raise request"), 12, white, () {
                     requestWheelChar(
                         userRequestType,
                         userChairNumber,

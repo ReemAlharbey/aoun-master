@@ -7,6 +7,7 @@ import 'TransilatClass/setLocale.dart';
 import 'Welcom page/frontend.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'home/AdmainHom/AdminHome.dart';
 import 'home/userHomePage/userHomePage.dart';
 
 // void main() => runApp(
@@ -102,7 +103,7 @@ class _MyAppState extends State<MyApp> {
           },
           debugShowCheckedModeBanner: false,
           //اظهار الشاشه الولي وفقا لحاله المستخدم, هل قام بالتسجيل مسلقا ام اول مره يظهر التطبيق
-          home: WelcomePage()),
+          home: AdmianHome()),
     );
   }
 }

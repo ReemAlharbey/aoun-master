@@ -14,6 +14,7 @@ IconData collegIcon=Icons.location_city_rounded;
 IconData levelIcon=Icons.reduce_capacity_rounded;
 IconData notificationsIcon=Icons.notifications;
 IconData homeIcon=Icons.home;
+IconData accept=Icons.task_alt_outlined;
 IconData requstIcon=Icons.list_alt_outlined;
 IconData requestType=Icons.live_help;
 IconData chairNumber=Icons.wheelchair_pickup;

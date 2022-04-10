@@ -7,7 +7,7 @@
   "E-mail": "E-mail",
   "YES": "YES",
   "NO": "NO",
-  
+  "raise request": "raise request",
   "The ID number must be 10 digits": "The ID number must be 10 digits",
   "Email already in use": "Email already in use",
   "Weak password": "Weak password",
