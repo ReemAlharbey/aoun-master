@@ -63,7 +63,9 @@ class _ManageWheelChairState extends State<ManageWheelChair> {
                 children: [
                   SizedBox(
                     width: 120,
-                    child: drowButtoms(context, 'طلبات التبرع', select == 1?14:12, white, () {
+                    child: drowButtoms(
+                        context, 'طلبات التبرع', select == 1 ? 14 : 12, white,
+                        () {
                       setState(() {
                         select = 1;
                       });
@@ -71,7 +73,9 @@ class _ManageWheelChairState extends State<ManageWheelChair> {
                   ),
                   SizedBox(
                     width: 120,
-                    child: drowButtoms(context, 'طلبات الكراسي', select == 2?14:12, white, () {
+                    child: drowButtoms(
+                        context, 'طلبات الكراسي', select == 2 ? 14 : 12, white,
+                        () {
                       setState(() {
                         select = 2;
                       });
@@ -79,7 +83,9 @@ class _ManageWheelChairState extends State<ManageWheelChair> {
                   ),
                   SizedBox(
                     width: 120,
-                    child: drowButtoms(context, 'اضافة كرسي', select == 3?14:12, white, () {
+                    child: drowButtoms(
+                        context, 'اضافة كرسي', select == 3 ? 14 : 12, white,
+                        () {
                       setState(() {
                         select = 3;
                       });
@@ -103,77 +109,84 @@ class _ManageWheelChairState extends State<ManageWheelChair> {
             ),
             //SizedBox(height: 10.h),
 //dontal request---------------------------------------------------------------------
-           select==1? Expanded(
-              flex: 4,
-              child: ListView.builder(
-                  //shrinkWrap: true,
-                  itemCount: snapshat.data.docs.length,
-                  itemBuilder: (context, i) {
-                    print(
-                      snapshat.data.docs.length,
-                    );
+            select == 1
+                ? Expanded(
+                    flex: 4,
+                    child: ListView.builder(
+                        //shrinkWrap: true,
+                        itemCount: snapshat.data.docs.length,
+                        itemBuilder: (context, i) {
+                          print(
+                            snapshat.data.docs.length,
+                          );
 //delete----------------------------------------------------------
-                    return SizedBox(
-                      height: 150,
-                      child: Card(
-                        elevation: 5,
-                        color: white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            side: BorderSide(color: deepGreen, width: 2)),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 10.w),
-                            getData("نجلاء محمد", nameIcon),
-                            SizedBox(height: 5.w),
-                            getData("1524789652", iDIcon),
-                            SizedBox(height: 5.w),
-                            getData("3", chairNumber),
-                            SizedBox(height: 5.w),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-            )
+                          return SizedBox(
+                            height: 120.h,
+                            child: Card(
+                              elevation: 5,
+                              color: white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  side: BorderSide(color: deepGreen, width: 2)),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 10.w),
+                                  getData("نجلاء محمد", nameIcon),
+                                  SizedBox(height: 5.w),
+                                  getData("1524789652", iDIcon),
+                                  SizedBox(height: 5.w),
+                                  getData("3", chairNumber),
+                                 
+                                      SizedBox(height: 5.w),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                  )
 //chiar request------------------------------------------------------------------------------------
-            :
-           select==2? Expanded(
-              flex: 4,
-              child: ListView.builder(
-                  //shrinkWrap: true,
-                  itemCount: snapshat.data.docs.length,
-                  itemBuilder: (context, i) {
-                    print(
-                      snapshat.data.docs.length,
-                    );
+                : select == 2
+                    ? Expanded(
+                        flex: 4,
+                        child: ListView.builder(
+                            //shrinkWrap: true,
+                            itemCount: snapshat.data.docs.length,
+                            itemBuilder: (context, i) {
+                              print(
+                                snapshat.data.docs.length,
+                              );
 //delete----------------------------------------------------------
-                    return SizedBox(
-                      height: 150,
-                      child: Card(
-                        elevation: 5,
-                        color: white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            side: BorderSide(color: deepGreen, width: 2)),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 10.w),
-                            getData("ريم محمد", nameIcon),
-                            SizedBox(height: 5.w),
-                            getData("125875424", iDIcon),
-                            SizedBox(height: 5.w),
-                            getData("2", chairNumber),
-                            SizedBox(height: 5.w),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-            )
-            :
-//---------------------------------------------------------            
-            Expanded(child: getChaiar())
+                              return SizedBox(
+                                height: 180.h,
+                                child: Card(
+                                  elevation: 5,
+                                  color: white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(
+                                          color: deepGreen, width: 2)),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 10.w),
+                                      getData("ريم محمد", nameIcon),
+                                      SizedBox(height: 5.w),
+                                      getData("125875424", iDIcon),
+                                      SizedBox(height: 5.w),
+                                      getData("2", chairNumber),
+                                      SizedBox(height: 5.w),
+                                      getData("12:30 AM", starTime),
+                                      SizedBox(height: 5.w),
+                                      getData("1:30 AM", endTime),
+                                      SizedBox(height: 5.w),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      )
+                    :
+//---------------------------------------------------------
+                    Expanded(child: getChaiar())
           ],
         ));
   }
@@ -195,33 +208,20 @@ class _ManageWheelChairState extends State<ManageWheelChair> {
       ),
     );
   }
+
 //-----------------------------------------------------
   getChaiar() {
     return Container(
       child: Column(
         children: [
-          Center(child: Padding(
+          Center(
+              child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: SizedBox(width:double.infinity,child: drowButtoms(context, "اضافة كرسي جديد", 12, white, (){},backgrounColor: deepGreen)),
+            child: SizedBox(
+                width: double.infinity,
+                child: drowButtoms(context, "اضافة كرسي جديد", 12, white, () {},
+                    backgrounColor: deepGreen)),
           )),
-
-          Expanded(child:Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListView.separated(
-               itemCount: 3,
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider(color: Colors.grey[600],);
-               },
-              itemBuilder: ((context, index){
-              return ListTile(
-                
-                title: drowText(context, "رقم الكرسي", 13,color: black),
-                subtitle: drowText(context, "1452", 12,color: Colors.grey) ,
-                leading: Icon(Icons.delete,color: Colors.red,),
-              );
-            }), ),
-          ) ),
-       
         ],
       ),
     );
