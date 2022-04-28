@@ -1,3 +1,4 @@
+import 'package:aoun/home/AdmainHom/AdminHomeNagiation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,7 +105,7 @@ class _MyAppState extends State<MyApp> {
          _local == null ?
           WelcomePage()
           :
-        userHomePage(),
+        AdmianHomeNavigation(),
       ),
     );
   }

@@ -27,9 +27,9 @@ class _donateWheelcharState extends State<donateWheelchar> {
       FirebaseFirestore.instance.collection('chair');
   var gate339Location = "https://www.google.com/maps?q=24.47088623046875,39.6141471862793&z=17&hl=en";
   var gate309Location = "https://www.google.com/maps?q=24.4661808013916,39.608253479003906&z=17&hl=en";
-  var chair339 = 0;
+  var chair339=0 ;
 
-  var chair309 = 0;
+  var chair309=0;
   @override
   void initState() {
     super.initState();
@@ -54,8 +54,8 @@ class _donateWheelcharState extends State<donateWheelchar> {
 
   @override
   Widget build(BuildContext context) {
-    print(chair309);
-    print(chair339);
+    print('309= $chair309');
+    print('339= $chair339');
     return Scaffold(
         body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -80,9 +80,9 @@ class _donateWheelcharState extends State<donateWheelchar> {
               drowButtoms(context, "رفع الطلب", 12, white, () {
                 if (key.currentState.validate()) {
                   if (chair309 > chair339) {
-                    goToLocaton(gate309Location, "Thank309");
-                  } else {
                     goToLocaton(gate339Location, "Thank339");
+                  } else {
+                    goToLocaton(gate309Location, "Thank309");
                   }
                 }
               }, backgrounColor: deepGreen),
@@ -109,11 +109,11 @@ class _donateWheelcharState extends State<donateWheelchar> {
     }, yesFunction: () async {
       try {
         if (await canLaunch(gatelocation)) {
-         // awesomDialog(context, 'Create an account', 'wating');
+      
           launch(gatelocation.toString());
           Navigator.pop(context);
         } else {
-          //awesomDialog(context, 'Create an account', e.toString());
+          //(context, 'Create an account', e.toString());
         }
       } catch (e) {
         //awesomDialog(context, 'Create an account', e.toString());

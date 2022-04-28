@@ -55,7 +55,7 @@ class _addChairState extends State<addChair> {
                               .get()
                               .then((value) {
                             chair339 = value.docs.length;
-                            //setState(() {});
+                            setState(() {});
                           });
                           chairCollection
                               .where("gateNumber", isEqualTo: "309")
@@ -165,12 +165,7 @@ class _addChairState extends State<addChair> {
                                                               },
                                                               child: Icon(
                                                                   Icons.delete,
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          236,
-                                                                          26,
-                                                                          11)))
+                                                                  color: Color.fromARGB(255, 202, 4, 4)))
                                                         ],
                                                       ),
                                                       drowText(
@@ -242,7 +237,7 @@ class _addChairState extends State<addChair> {
                 //gate number-------------------------------------------------------------
                 Padding(
                   padding: EdgeInsets.all(8.0.w),
-                  child: drowMenu("رقم البوابة", gate, ["309", "339"], (value) {
+                  child: drowMenu( "رقم البوابة",gate, ["309", "339"], (value) {
                     setState(() {
                       gatNumberValue = value;
                     });
@@ -300,11 +295,6 @@ class _addChairState extends State<addChair> {
     );
   }
 
-  String notEmpty(String val) {
-    if (val.isEmpty) {
-      return translatedData(context, 'Fill in the field');
-    }
-  }
 
   String validChair(String val) {
     if (val.isEmpty) {
