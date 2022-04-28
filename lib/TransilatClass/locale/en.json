@@ -7,7 +7,6 @@
   "E-mail": "E-mail",
   "YES": "YES",
   "NO": "NO",
-  "raise request": "raise request",
   "The ID number must be 10 digits": "The ID number must be 10 digits",
   "Email already in use": "Email already in use",
   "Weak password": "Weak password",
@@ -19,6 +18,10 @@
   "successfully": "operation accomplished successfully",
   "Process completed": "Process completed",
   "user not found": "user not found",
+  "add chair": "",
+  "delete chair": "delete chair",
+  "chairNumber": "The wheel chair number cannot be more than or less than 4 digits",
+  "delete": "Are you sure to complete the deletion process?",
   "Verify": "Verify that the entered data is correct",
   "password": "Password",
   "Residence/ID number": "Residence/ ID number",
@@ -32,5 +35,8 @@
   "The mobile number must be 10 digits": "The mobile number must be 10 digits",
   "Mobile number must start with 05": "Mobile number must start with 05",
   "Request a wheelchair": "Request a wheelchair",
-  "empty": "Fill in all the fields above"
+  "empty": "Fill in all the fields above",
+  "Thank309": "Thank you for donating the wheelchair. Please go to Gate No. 309. Do you want to view the gate's location?",
+  "Thank339": "Thank you for donating the wheelchair. Please go to Gate No. 339. Do you want to view the gate's location?",
+  "Donate a wheelchair":"Donate a wheelchair"
 }

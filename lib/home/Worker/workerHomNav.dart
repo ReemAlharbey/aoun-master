@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../Widget/Colors.dart';
-import 'manageUser.dart';
-import 'manageWheelChair.dart';
-
-class AdmianHome extends StatefulWidget {
-  AdmianHome({Key key}) : super(key: key);
+import 'AcceptedRequests.dart';
+import 'workerRequest.dart';
+class WorkerHome extends StatefulWidget {
+  WorkerHome({Key key}) : super(key: key);
 
   @override
-  State<AdmianHome> createState() => _AdmianHomeState();
+  State<WorkerHome> createState() => _WorkerHomeState();
 }
 
-class _AdmianHomeState extends State<AdmianHome> {
-  int _selectedIndex = 1;
+class _WorkerHomeState extends State<WorkerHome> {
+   int _selectedIndex = 0;
   final List page = [
-    
-    ManageUser(),
-    ManageWheelChair(),
-
-  
+     WorkerRequest(),
+    AcceptedRequests()
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,12 +35,12 @@ class _AdmianHomeState extends State<AdmianHome> {
           items: const [
     
             BottomNavigationBarItem(
-              icon: Icon(Icons.manage_accounts_sharp),
-              label: "إدارة المستخدمين",
+              icon: Icon(Icons.insert_chart_outlined_rounded),
+              label: "إدارة الطلبات",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.insert_chart_outlined_rounded),
-              label: "إدارة الكراسي",
+              icon: Icon(Icons.check_circle_outline),
+              label: "طلباتي",
             ),
            
             

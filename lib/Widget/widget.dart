@@ -117,9 +117,11 @@ Widget drowButtoms(
     {Color backgrounColor = Colors.transparent,
     double horizontal = 0.0,
     double vertical = 0.0,
+    double width ,
     double evaluation = 0.0}) {
   return SizedBox(
     height: 45.h,
+    width: width,
     child: TextButton(
       onPressed: onPressed,
       child: drowText(context, key, fontSize, color: textColor),
@@ -163,9 +165,11 @@ Widget drowTextField(
     int max = 1,
     int min = 1,
     inputFormatters,
+    
     keyboardType,
     void Function() onTap}) {
   return TextFormField(
+    autofocus: false,
     obscureText: hintPass,
     validator: myvali,
     minLines: min,
@@ -215,9 +219,10 @@ Widget langButtom(context, {IconData icon}) {
 
 // combo box============================================================abstract
 Widget drowMenu(
-    String insiValue, IconData icon, List<String> item, onchanged, validator) {
+    String insiValue, IconData icon, List<String> item, onchanged, validator,{double width=double.infinity}) {
   return Container(
     color: gray,
+    width: width,
     child: DropdownButtonFormField<String>(
        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
@@ -275,3 +280,56 @@ showCurrentLocation() async {
     currentLocation = null;
   }
 }
+
+//container decoration-------------------------------------------
+decoration(
+  double bottomLeft,
+  double bottomRight,
+  double topLeft,
+  double topRight, {
+  Color color = Colors.white,
+  double blurRadius = 0.0,
+  double spreadRadius = 0.0,
+  BoxBorder border,
+}) {
+  return BoxDecoration(
+    color: color,
+     border:border,
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(topLeft.r),
+      topRight: Radius.circular(topRight.r),
+      bottomLeft: Radius.circular(bottomLeft.r),
+      bottomRight: Radius.circular(bottomRight.r),
+     
+    ),
+    boxShadow: [
+      BoxShadow(
+        blurRadius: blurRadius,
+        spreadRadius: spreadRadius,
+      )
+    ],
+  );
+}
+int unique() {
+  return DateTime.now().millisecondsSinceEpoch.remainder(1000000);
+}
+
+
+//get data from database--------------------------------------
+  Widget getData(context,text, icon) {
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+        child: Row(children: [
+          Icon(
+            icon,
+            color: deepGreen,
+          ),
+          SizedBox(width: 10.w),
+          drowText(context, text, 12.3,
+              fontWeight: FontWeight.bold, color: black)
+        ]),
+      ),
+    );
+  }
+

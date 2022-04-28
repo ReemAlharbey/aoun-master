@@ -21,12 +21,24 @@ class requestWheelchar extends StatefulWidget {
 
 class _requestWheelcharState extends State<requestWheelchar> {
   var userId;
+  String userPhone = '';
+  String username_ = '';
+  int number;
+  CollectionReference user = FirebaseFirestore.instance.collection("user");
   @override
   void initState() {
     super.initState();
-    showCurrentLocation();
     userId = FirebaseAuth.instance.currentUser.uid;
-    print(userId);
+    user.where("userID", isEqualTo: userId).get().then((value) {
+      value.docs.forEach((element) {
+        setState(() {
+          userPhone=element.data()['phone'];
+         username_=element.data()['name'];
+        });
+      });
+    });
+    number=unique();
+    showCurrentLocation();
   }
 
   var contriy, street, name, locality;
@@ -44,6 +56,7 @@ class _requestWheelcharState extends State<requestWheelchar> {
   String format_End_Time = "";
   @override
   Widget build(BuildContext context) {
+    print(number);
     return Scaffold(
         body: Center(
             child: SingleChildScrollView(
@@ -96,7 +109,7 @@ class _requestWheelcharState extends State<requestWheelchar> {
                   SizedBox(height: 10.h),
                   viewStringLocationAddress(),
                   SizedBox(height: 10.h),
-                  drowButtoms(context,translatedData(context, "raise request"), 12, white, () {
+                  drowButtoms(context, "رفع الطلب", 12, white, () {
                     requestWheelChar(
                         userRequestType,
                         userChairNumber,
@@ -319,10 +332,15 @@ class _requestWheelcharState extends State<requestWheelchar> {
       awesomDialog(context, 'Request a wheelchair', 'wating');
 
       await FirebaseFirestore.instance.collection('userRequests').add({
-        'userId':userId,
+        'userId': userId,
         'userRequestType': userRequestType,
+        'name': username_,
+        'phone': userPhone,
+        'state': 0,
+        'requestNumber':number,
         'userChairNumber': userChairNumber,
         'formatStarTime': formatStarTime,
+        'formatEndTime': formatEndTime,
         'Starthour': hour,
         'Starminute': minute,
         'Endthour': hour2,

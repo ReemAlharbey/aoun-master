@@ -61,7 +61,7 @@ class _ManageUserState extends State<ManageUser> {
             );
 //delete----------------------------------------------------------
             return SizedBox(
-              height: 150,
+              height: 150.h,
               child: deleteUser(
                 snapshat.data.docs[i].id,
                 Card(

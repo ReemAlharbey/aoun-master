@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 awesomDialog(context, String title, String content,
     {bool showButtom = false, yesFunction, noFunction}) {
   return showDialog(
+    //barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -35,7 +36,7 @@ awesomDialog(context, String title, String content,
 
           content: content != "wating"
               ? SizedBox(
-                  height: 50.h,
+                  height: 150.h,
                   width: double.infinity,
                   child: Column(
                     children: [
@@ -58,7 +59,7 @@ awesomDialog(context, String title, String content,
                       showButtom
                           ? Divider(
                               thickness: 2,
-                              color: Colors.grey[300],
+                              color: Colors.grey[500],
                             )
                           : SizedBox(),
                       SizedBox(height: 10.h),
@@ -75,15 +76,19 @@ awesomDialog(context, String title, String content,
 
                                     Expanded(
                                         child: drowButtoms(
+                                         
                                       context,
-                                      "YES",
+                                      "نعم",
                                       16.0,
-                                      deepGreen,
+                                      white,
                                       () {
                                         yesFunction();
                                       },
+                                        backgrounColor:deepGreen,
                                       evaluation: 0,
-                                    )),
+                                     
+                                    )
+                                    ),
 
                                     SizedBox(width: 20.w),
 //no buttom-------------------------------------------------------------------
@@ -91,12 +96,13 @@ awesomDialog(context, String title, String content,
                                     Expanded(
                                         child: drowButtoms(
                                       context,
-                                      "NO",
+                                      "لا",
                                       16.0,
-                                      deepGreen,
+                                      white,
                                       () {
                                         noFunction();
                                       },
+                                       backgrounColor:deepGreen,
                                       evaluation: 0,
                                     ))
                                   ]),

@@ -6,7 +6,6 @@
   "user name": "اسم المستخدم",
   "E-mail": "البريد الالكتروني",
   "password": "كلمة المرور",
-  "raise request": "رفع الطلب",
   "Residence/ID number": "رقم الاقامة / الهوية",
   "Mobile number": "رقم الجوال",
   "Invalid email": "البريد الالكتروني غير صالح",
@@ -22,6 +21,10 @@
   "Connection error": "خطا في الاتصال",
   "successfully": "تمت العملية بنجاح",
   "Process completed": "اكتمال العملية",
+  "add chair": "",
+  "delete": "هل انت متاكد من اكمال عملية الحذف؟",
+  "delete chair": "حذف كرسي",
+  "chairNumber": "لايمكن ان يكون رقم الكرسي اكثر او اقل من 4 خانات",
   "user not found": "لم يتم العثور على المستخدم",
   "Verify": "تحقق من صحة البيانات المدخلة",
   "Already have an account?Login": "لديك حساب بالفعل؟ تسجيل الدخول",
@@ -32,5 +35,8 @@
   "Mobile number must start with 05": "يجب ان يبدا رقم الجوال ب 05",
   "Request a wheelchair": "طلب كرسي متحرك",
   "The operation failed": "فشلت العملية",
-  "The operation was not completed successfully": "العملية لم تكتمل بنجاح"
+  "The operation was not completed successfully": "العملية لم تكتمل بنجاح",
+  "Thank309": "شكرا علي تبرعك بالكرسي المتحرك الرجاء الاتجاة الي البوابة رقم ٣٠٩ ، هل تريد استعراض الموقع الجغرافي للبوابة؟",
+  "Thank339": "شكرا علي تبرعك بالكرسي المتحرك الرجاء الاتجاة الي البوابة رقم ٣٣٩ ، هل تريد استعراض الموقع الجغرافي للبوابة؟",
+  "Donate a wheelchair":"التبرع بكرسي متحرك"
 }
