@@ -75,13 +75,18 @@ class _donateWheelcharState extends State<donateWheelchar> {
     // print(chair309);
     // print(chair339);
     return Scaffold(
+       drawer: drawer(context),
+      appBar: AppBar(
+          title: drowText(context, "التبرع بكرسي متحرك", 15),
+          centerTitle: true,
+          backgroundColor: deepGreen),
         body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
           height: 10.h,
         ),
-        drowText(context, "التبرع بكرسي متحرك", 18, color: deepGreen),
+        drowText(context, "املء الحقل ادناه", 18, color: deepGreen),
         Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
           child: Column(

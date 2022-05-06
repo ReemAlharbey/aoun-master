@@ -69,16 +69,21 @@ class _requestWheelcharState extends State<requestWheelchar> {
     print(number);
 
     return Scaffold(
+       drawer: drawer(context),
+      appBar: AppBar(
+          title: drowText(context, "طلب كرسي متحرك", 15),
+          centerTitle: true,
+          backgroundColor: deepGreen),
         body: Center(
             child: SingleChildScrollView(
       child: Column(
         children: [
           SizedBox(
-            height: 60.h,
+            height: 50.h,
           ),
-          drowText(context, "طلب كرسي متحرك", 18, color: deepGreen),
+          drowText(context, "قم بملء الحقول ادناها", 18, color: deepGreen),
           Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 40.h),
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
             child: Form(
               key: reqestKey,
               child: Column(

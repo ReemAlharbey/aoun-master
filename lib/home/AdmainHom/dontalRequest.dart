@@ -19,7 +19,7 @@ class _dontalRequestState extends State<dontalRequest> {
       FirebaseFirestore.instance.collection("donateWheelchairRequest");
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  Container(
         child: StreamBuilder(
             stream: userRequests.snapshots(),
             builder: (BuildContext context, AsyncSnapshot snapshat) {
@@ -28,7 +28,8 @@ class _dontalRequestState extends State<dontalRequest> {
                     "خطا في استرجاع البيانات من قاعدة البيانات");
               }
               if (snapshat.hasData) {
-                return ListView.builder(
+                return  snapshat.data.docs.length > 0
+                              ?ListView.builder(
                     //shrinkWrap: true,
                     itemCount: snapshat.data.docs.length,
                     itemBuilder: (context, i) {
@@ -57,7 +58,9 @@ class _dontalRequestState extends State<dontalRequest> {
                           ),
                         ),
                       );
-                    });
+                    }):Center(
+            child: drowText(context, "لاتوجد طلبات حاليا", 15, color: black));
+   
               }
 
               return const Center(

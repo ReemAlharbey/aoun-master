@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../Widget/AwesomDialog.dart';
+import '../home/AdmainHom/AdminHomeNagiation.dart';
+import '../home/Worker/workerHomNav.dart';
 import 'SingUpPage.dart';
 
 class LoggingPage extends StatefulWidget {
@@ -65,7 +67,7 @@ class _LoggingPageState extends State<LoggingPage> {
                     padding:
                         EdgeInsets.only(left: 20.w, right: 40.w, top: 40.h),
                     child: Form(
-                     key: loggingKey,
+                      key: loggingKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -94,10 +96,13 @@ class _LoggingPageState extends State<LoggingPage> {
                             keyboardType: TextInputType.text,
                           ),
                           SizedBox(height: 10.h),
-                          drowButtoms(context, translatedData(context, "sign in"),
-                              12, white, () {
-                            logging(
-                                emailLogController.text, passLogController.text);
+                          drowButtoms(
+                              context,
+                              translatedData(context, "sign in"),
+                              12,
+                              white, () {
+                            logging(emailLogController.text,
+                                passLogController.text);
                           }, backgrounColor: deepGreen),
                           drowButtoms(
                               context,
@@ -105,6 +110,8 @@ class _LoggingPageState extends State<LoggingPage> {
                                   "Don't have an account? Create an account"),
                               12,
                               deepGreen, () {
+                            passLogController.clear();
+                            emailLogController.clear();
                             goTopageReplacement(context, SingUpPage());
                           }, backgrounColor: white)
                         ],
@@ -131,8 +138,21 @@ class _LoggingPageState extends State<LoggingPage> {
             .signInWithEmailAndPassword(email: emile.trim(), password: pass);
 
         if (userCredential != null) {
-          // Navigator.pop(context);
-          goTopageReplacement(context, userHomePage());
+          if (passLogController.text == "123456789" &&
+              emailLogController.text == "admin@gmail.com") {
+            goTopageReplacement(context, AdmianHomeNavigation());
+            passLogController.clear();
+            emailLogController.clear();
+          } else if (passLogController.text == "123456789" &&
+              emailLogController.text == "worker@gmail.com") {
+            goTopageReplacement(context, WorkerHome());
+            passLogController.clear();
+            emailLogController.clear();
+          } else {
+            goTopageReplacement(context, userHomePage());
+            passLogController.clear();
+            emailLogController.clear();
+          }
         }
       } on FirebaseException catch (e) {
         Navigator.pop(context);

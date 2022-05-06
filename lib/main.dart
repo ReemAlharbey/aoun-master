@@ -107,7 +107,7 @@ class _MyAppState extends State<MyApp> {
          _local == null ?
           WelcomePage()
           :
-        AdmianHomeNavigation(),
+         LoggingPage(),
       ),
     );
   }

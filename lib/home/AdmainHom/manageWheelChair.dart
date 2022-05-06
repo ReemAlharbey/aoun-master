@@ -22,6 +22,7 @@ class _ManageWheelChairState extends State<ManageWheelChair> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: drawer(context),
       appBar: AppBar(
           title: drowText(context, "إدارة الكراسي المتحركة", 15),
           centerTitle: true,

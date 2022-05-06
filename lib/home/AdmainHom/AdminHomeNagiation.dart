@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../Widget/Colors.dart';
+import '../../Widget/widget.dart';
 import 'manageUser.dart';
 import 'manageWheelChair.dart';
 
@@ -22,6 +23,7 @@ class _AdmianHomeNavigationState extends State<AdmianHomeNavigation> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        
         body: page[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

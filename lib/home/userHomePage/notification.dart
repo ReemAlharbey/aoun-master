@@ -31,6 +31,7 @@ class _notificationState extends State<notification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       drawer: drawer(context),
       appBar: AppBar(
           title: drowText(context, "الاشعارات", 15),
           centerTitle: true,

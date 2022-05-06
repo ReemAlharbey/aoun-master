@@ -1,5 +1,7 @@
 import 'package:aoun/TransilatClass/language.dart';
+import 'package:aoun/UserAccount/LoggingPage.dart';
 import 'package:aoun/Welcom%20page/backend.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 
@@ -343,7 +345,10 @@ drawer(context) {
       ListTile(
         leading: Icon(Icons.logout_rounded, color: white),
         title: drowText(context, "تسجيل الخروج", 17, color: white),
-        onTap: () {},
+        onTap: () async {
+          await FirebaseAuth.instance.signOut();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoggingPage() ));
+        },
       ),
     ]),
   );

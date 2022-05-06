@@ -21,6 +21,7 @@ class _ManageUserState extends State<ManageUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: drawer(context),
       appBar: AppBar(
           title: drowText(context, "إدارة المستخدمين", 15),
           centerTitle: true,
@@ -50,44 +51,51 @@ class _ManageUserState extends State<ManageUser> {
 
   //show products-------------------------------
   Widget getUsers(BuildContext context, AsyncSnapshot snapshat) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 14.h),
-      child: ListView.builder(
-          //shrinkWrap: true,
-          itemCount: snapshat.data.docs.length,
-          itemBuilder: (context, i) {
-            print(
-              snapshat.data.docs.length,
-            );
+    return snapshat.data.docs.length > 0
+        ? Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 14.h),
+            child: ListView.builder(
+                //shrinkWrap: true,
+                itemCount: snapshat.data.docs.length,
+                itemBuilder: (context, i) {
+                  print(
+                    snapshat.data.docs.length,
+                  );
 //delete----------------------------------------------------------
-            return SizedBox(
-              height: 150.h,
-              child: deleteUser(
-                snapshat.data.docs[i].id,
-                Card(
-                   elevation: 5,
-                  color: white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: deepGreen, width: 2)
-                  ),
-                  child: Column(
-                    children: [
-                      getData(snapshat.data.docs[i].data()['name'], nameIcon),
-                      SizedBox(height: 5.w),
-                      getData(snapshat.data.docs[i].data()['identity'], iDIcon),
-                      SizedBox(height: 5.w),
-                      getData(snapshat.data.docs[i].data()['phone'], phoneIcon),
-                      SizedBox(height: 5.w),
-                      getData(snapshat.data.docs[i].data()['emile'], emailIcon),
-                      SizedBox(height: 5.w),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }),
-    );
+                  return SizedBox(
+                    height: 150.h,
+                    child: deleteUser(
+                      snapshat.data.docs[i].id,
+                      Card(
+                        elevation: 5,
+                        color: white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            side: BorderSide(color: deepGreen, width: 2)),
+                        child: Column(
+                          children: [
+                            getData(
+                                snapshat.data.docs[i].data()['name'], nameIcon),
+                            SizedBox(height: 5.w),
+                            getData(snapshat.data.docs[i].data()['identity'],
+                                iDIcon),
+                            SizedBox(height: 5.w),
+                            getData(snapshat.data.docs[i].data()['phone'],
+                                phoneIcon),
+                            SizedBox(height: 5.w),
+                            getData(snapshat.data.docs[i].data()['emile'],
+                                emailIcon),
+                            SizedBox(height: 5.w),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+          )
+        : Center(
+            child:
+                drowText(context, "لايوجد مستخدمين حاليا", 15, color: black));
   }
 
 //get data from database--------------------------------------
