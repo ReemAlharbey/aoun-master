@@ -18,7 +18,7 @@ IconData accept=Icons.task_alt_outlined;
 IconData requstIcon=Icons.list_alt_outlined;
 IconData requestType=Icons.live_help;
 IconData chairNumber=Icons.wheelchair_pickup;
-IconData stuts=Icons.local_shipping_rounded;
+
 IconData gate=Icons.door_sliding_rounded;
 Icon noIcon=Icon(Icons.add,size: 0);
 Icon showPassIcon=Icon(Icons.remove_red_eye);

@@ -7,6 +7,9 @@ import 'package:aoun/Widget/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../UserAccount/SingUpPage.dart';
+import 'Icons.dart';
+
 var latitude, longtitude;
 var error;
 Widget drowText(
@@ -117,7 +120,7 @@ Widget drowButtoms(
     {Color backgrounColor = Colors.transparent,
     double horizontal = 0.0,
     double vertical = 0.0,
-    double width ,
+    double width,
     double evaluation = 0.0}) {
   return SizedBox(
     height: 45.h,
@@ -165,7 +168,6 @@ Widget drowTextField(
     int max = 1,
     int min = 1,
     inputFormatters,
-    
     keyboardType,
     void Function() onTap}) {
   return TextFormField(
@@ -197,34 +199,34 @@ Widget drowTextField(
 //===========================DropMenu Buttom==============================
 Widget langButtom(context, {IconData icon}) {
   return DropdownButton(
-    elevation: 20,
-    underline: SizedBox(),
-    dropdownColor: gray,
-    iconSize: 20.sp,
-    icon: Icon(icon, color: white),
-    items: Language.languageList()
-        .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
-              value: lang,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[Text(lang.name)],
-              ),
-            ))
-        .toList(),
-    onChanged: (Language lang) {
-      newLang(lang, context);
-    },
-  );
+      elevation: 20,
+      underline: SizedBox(),
+      dropdownColor: gray,
+      iconSize: 20.sp,
+      icon: Icon(icon, color: white),
+      items: Language.languageList()
+          .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
+                value: lang,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[Text(lang.name)],
+                ),
+              ))
+          .toList(),
+      onChanged: (Language lang) {
+        newLang(lang, context);
+      });
 }
 
 // combo box============================================================abstract
 Widget drowMenu(
-    String insiValue, IconData icon, List<String> item, onchanged, validator,{double width=double.infinity}) {
+    String insiValue, IconData icon, List<String> item, onchanged, validator,
+    {double width = double.infinity}) {
   return Container(
     color: gray,
     width: width,
     child: DropdownButtonFormField<String>(
-       autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         hint: Text(
           "$insiValue",
@@ -247,9 +249,7 @@ Widget drowMenu(
                   ),
                 ))
             .toList(),
-            
         decoration: InputDecoration(
-          
           contentPadding: const EdgeInsets.all(8.0),
           prefixIcon: Icon(icon, color: deepGreen, size: 25),
           border: OutlineInputBorder(
@@ -294,13 +294,12 @@ decoration(
 }) {
   return BoxDecoration(
     color: color,
-     border:border,
+    border: border,
     borderRadius: BorderRadius.only(
       topLeft: Radius.circular(topLeft.r),
       topRight: Radius.circular(topRight.r),
       bottomLeft: Radius.circular(bottomLeft.r),
       bottomRight: Radius.circular(bottomRight.r),
-     
     ),
     boxShadow: [
       BoxShadow(
@@ -310,26 +309,42 @@ decoration(
     ],
   );
 }
+
 int unique() {
   return DateTime.now().millisecondsSinceEpoch.remainder(1000000);
 }
 
-
 //get data from database--------------------------------------
-  Widget getData(context,text, icon) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-        child: Row(children: [
-          Icon(
-            icon,
-            color: deepGreen,
-          ),
-          SizedBox(width: 10.w),
-          drowText(context, text, 12.3,
-              fontWeight: FontWeight.bold, color: black)
-        ]),
-      ),
-    );
-  }
+Widget getData(context, text, icon) {
+  return Expanded(
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+      child: Row(children: [
+        Icon(
+          icon,
+          color: deepGreen,
+        ),
+        SizedBox(width: 10.w),
+        drowText(context, text, 12.3, fontWeight: FontWeight.bold, color: black)
+      ]),
+    ),
+  );
+}
 
+drawer(context) {
+  return Drawer(
+    backgroundColor: deepGreen,
+    child: Column(children: [
+      SizedBox(height: 30.h),
+      Center(
+        child: drowText(context, "الاعدادات", 17, color: white),
+      ),
+      SizedBox(height: 15.h),
+      ListTile(
+        leading: Icon(Icons.logout_rounded, color: white),
+        title: drowText(context, "تسجيل الخروج", 17, color: white),
+        onTap: () {},
+      ),
+    ]),
+  );
+}

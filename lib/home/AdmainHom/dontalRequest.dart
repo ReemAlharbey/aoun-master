@@ -16,7 +16,7 @@ class dontalRequest extends StatefulWidget {
 
 class _dontalRequestState extends State<dontalRequest> {
   CollectionReference userRequests =
-      FirebaseFirestore.instance.collection("userRequests");
+      FirebaseFirestore.instance.collection("donateWheelchairRequest");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,11 +47,11 @@ class _dontalRequestState extends State<dontalRequest> {
                           child: Column(
                             children: [
                               SizedBox(height: 10.w),
-                              getData(context, "نجلاء محمد", nameIcon),
+                              getData(context, "${snapshat.data.docs[i].data()['name']}", nameIcon),
                               SizedBox(height: 5.w),
-                              getData(context, "1524789652", iDIcon),
+                              getData(context,"${snapshat.data.docs[i].data()['identity']}", iDIcon),
                               SizedBox(height: 5.w),
-                              getData(context, "3", chairNumber),
+                              getData(context, "${snapshat.data.docs[i].data()['chairNumber']}", chairNumber),
                               SizedBox(height: 5.w),
                             ],
                           ),

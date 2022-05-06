@@ -23,7 +23,10 @@ class _requestWheelcharState extends State<requestWheelchar> {
   var userId;
   String userPhone = '';
   String username_ = '';
+  int dbChairNumber = 0;
   int number;
+  CollectionReference chairCollection =
+      FirebaseFirestore.instance.collection('chair');
   CollectionReference user = FirebaseFirestore.instance.collection("user");
   @override
   void initState() {
@@ -32,13 +35,20 @@ class _requestWheelcharState extends State<requestWheelchar> {
     user.where("userID", isEqualTo: userId).get().then((value) {
       value.docs.forEach((element) {
         setState(() {
-          userPhone=element.data()['phone'];
-         username_=element.data()['name'];
+          userPhone = element.data()['phone'];
+          username_ = element.data()['name'];
         });
       });
     });
-    number=unique();
+    number = unique();
     showCurrentLocation();
+
+//--------------------------------------------------
+    chairCollection.get().then((value) {
+      //setState(() {
+      dbChairNumber = value.docs.length;
+      // });
+    });
   }
 
   var contriy, street, name, locality;
@@ -57,6 +67,7 @@ class _requestWheelcharState extends State<requestWheelchar> {
   @override
   Widget build(BuildContext context) {
     print(number);
+
     return Scaffold(
         body: Center(
             child: SingleChildScrollView(
@@ -324,10 +335,14 @@ class _requestWheelcharState extends State<requestWheelchar> {
       String locationAdrress,
       latitude,
       longtitude) async {
+    print('userChairNumber: ${int.parse(userChairNumber)}');
+    print('chair number: $dbChairNumber');
     if (reqestKey.currentState.validate() == false ||
         formatStarTime.isEmpty ||
         formatEndTime.isEmpty) {
       awesomDialog(context, "Empty data", "empty");
+    } else if (dbChairNumber < int.parse(userChairNumber)) {
+      awesomDialog(context, 'Request a wheelchair', 'try');
     } else {
       awesomDialog(context, 'Request a wheelchair', 'wating');
 
@@ -336,9 +351,9 @@ class _requestWheelcharState extends State<requestWheelchar> {
         'userRequestType': userRequestType,
         'name': username_,
         'phone': userPhone,
-        'state': 0,
-        'requestNumber':number,
-        'userChairNumber': userChairNumber,
+        'state': false,
+        'requestNumber': number,
+        'userChairNumber': int.parse(userChairNumber),
         'formatStarTime': formatStarTime,
         'formatEndTime': formatEndTime,
         'Starthour': hour,
@@ -348,6 +363,9 @@ class _requestWheelcharState extends State<requestWheelchar> {
         'locationAdrress': locationAdrress,
         'latitude': latitude,
         'longtitude': longtitude,
+        'createOn':DateTime.now(),
+        
+        
       }).then((value) {
         Navigator.pop(context);
         awesomDialog(

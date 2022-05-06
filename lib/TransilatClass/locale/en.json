@@ -38,5 +38,7 @@
   "empty": "Fill in all the fields above",
   "Thank309": "Thank you for donating the wheelchair. Please go to Gate No. 309. Do you want to view the gate's location?",
   "Thank339": "Thank you for donating the wheelchair. Please go to Gate No. 339. Do you want to view the gate's location?",
-  "Donate a wheelchair":"Donate a wheelchair"
+  "Donate a wheelchair":"Donate a wheelchair",
+  "try":"The number of chairs required is not available at the moment. Please try again after a short time"
+
 }

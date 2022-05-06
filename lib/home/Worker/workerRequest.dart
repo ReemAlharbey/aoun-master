@@ -21,7 +21,9 @@ class WorkerRequest extends StatefulWidget {
 class _WorkerRequestState extends State<WorkerRequest> {
   CollectionReference userRequests =
       FirebaseFirestore.instance.collection("userRequests");
-
+CollectionReference chairCollection =
+      FirebaseFirestore.instance.collection('chair');
+    
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,19 +31,20 @@ class _WorkerRequestState extends State<WorkerRequest> {
             title: drowText(context, "إدارة طلبات الكراسي المتحركة", 15),
             centerTitle: true,
             backgroundColor: deepGreen),
+        drawer: drawer(context),
         body: Container(
           width: double.infinity,
           height: double.infinity,
           // decoration: BoxDecoration(
           //   image: DecorationImage(
-                // image: AssetImage(
-                //   welcomImage,
-                // ),
-                // fit: BoxFit.cover,
-                // colorFilter:
-                //     ColorFilter.mode(Colors.black54, BlendMode.darken)
-     // ),
-         // ),
+          // image: AssetImage(
+          //   welcomImage,
+          // ),
+          // fit: BoxFit.cover,
+          // colorFilter:
+          //     ColorFilter.mode(Colors.black54, BlendMode.darken)
+          // ),
+          // ),
           child: Column(
             children: [
               SizedBox(height: 20.h),
@@ -53,7 +56,7 @@ class _WorkerRequestState extends State<WorkerRequest> {
 
                 //color: green,
                 child: StreamBuilder(
-                    stream: userRequests.snapshots(),
+                    stream: userRequests.orderBy('createOn', descending: true).snapshots(),
                     builder: (BuildContext context, AsyncSnapshot snapshat) {
                       if (snapshat.hasError) {
                         awesomDialog(context, "ادارة الكراسي",
@@ -83,9 +86,7 @@ class _WorkerRequestState extends State<WorkerRequest> {
                 //shrinkWrap: true,
                 itemCount: snapshat.data.docs.length,
                 itemBuilder: (context, i) {
-                  print(
-                    snapshat.data.docs.length,
-                  );
+                  
 //delete----------------------------------------------------------
                   return SizedBox(
                     height: 200.h,
@@ -93,11 +94,21 @@ class _WorkerRequestState extends State<WorkerRequest> {
                       elevation: 5,
                       color: white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: deepGreen, width: 1)
-                      ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: deepGreen, width: 1)),
                       child: Column(
                         children: [
+                          SizedBox(height: 5),
+                          Container(
+                              margin: EdgeInsets.symmetric(horizontal: 3.w),
+                              color: deepGreen,
+                              child: Center(
+                                  child: drowText(
+                                context,
+                                'رقم الطلب ${snapshat.data.docs[i].data()['requestNumber']}',
+                                14,
+                              ))),
+                          SizedBox(height: 5),
                           getData(
                               snapshat.data.docs[i].data()['name'],
                               nameIcon,
@@ -118,11 +129,53 @@ class _WorkerRequestState extends State<WorkerRequest> {
                           SizedBox(height: 5.w),
                           Padding(
                             padding: EdgeInsets.all(8.0.h),
-                            child: Row(
+                            child:Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                buttom("", Icons.check_circle_outline, () {}),
-                                buttom("", Icons.unpublished, () {}),
+//accept buttom---------------------------------------------------------------------------------------
+                               snapshat.data.docs[i].data()['state']==false? buttom("", Icons.check_circle_outline, () async {
+                                  awesomDialog(context, 'Create an account','wating');
+                                  await FirebaseFirestore.instance.collection("acceptRequest").add({
+                                  'formatEndTime':  snapshat.data.docs[i].data()['formatEndTime'],
+                                  'requestNumber':  snapshat.data.docs[i].data()['requestNumber'],
+                                  'userId':  snapshat.data.docs[i].data()['userId'],
+                                  'state':'حالة الطلب'
+                                 }).then((value){
+                                    FirebaseFirestore.instance.collection("messege").add({
+                                   'masseg':'نشكرك علي الطلب من عون, لقد تم قبول طلبك ورقم الطلب هو ${snapshat.data.docs[i].data()['requestNumber']}',
+                                   'date':"${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                                   'time':"${DateTime.now().hour} : ${DateTime.now().minute}",
+                                   'userId':  snapshat.data.docs[i].data()['userId'],
+                                   'createOn':DateTime.now(),
+                                  
+                                 });
+                                 userRequests.doc('${snapshat.data.docs[i].id}').update({
+                                   'state':true,
+                                 });
+                                    Navigator.pop(context);
+                                    awesomDialog(context, 'Process completed',
+                                          'successfully');
+                                 });
+                                }):drowText(context, "   تم قبول الطلب   ", 14,color:green,),
+//unAccept buttom---------------------------------------------------------------------------------------
+                              snapshat.data.docs[i].data()['state']==false?buttom("", Icons.unpublished, ()async {
+                                 
+                                   awesomDialog(context, 'Create an account',
+                                          'wating');
+                                 await FirebaseFirestore.instance.collection("messege").add({
+                                   'masseg':'نعتزر منك لم يتم قبول طلبك في الوقت الحالي',
+                                   'date':"${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                                   'time':"${DateTime.now().hour} : ${DateTime.now().minute}",
+                                   'userId':  snapshat.data.docs[i].data()['userId'],
+                                    'createOn':DateTime.now(),
+                                 }).then((value){
+                                    Navigator.pop(context);
+                                    userRequests.doc('${snapshat.data.docs[i].id}').delete();
+                                    awesomDialog(context, 'Process completed',
+                                          'successfully');
+                                 });
+                                }):drowText(context, "", 14,color:green,),
+//location---------------------------------------------------------------------------------------
                                 buttom("", Icons.location_on, () async {
                                   var url =
                                       "https://www.google.com/maps/search/?api=1&query=${snapshat.data.docs[i].data()['latitude']},${snapshat.data.docs[i].data()['longtitude']}";
@@ -140,9 +193,30 @@ class _WorkerRequestState extends State<WorkerRequest> {
                                     awesomDialog(context, '', e.toString());
                                   }
                                 }),
-                                buttom("", Icons.chat, () {})
+//chat---------------------------------------------------------------------------------------
+                                buttom("", Icons.chat, () async {
+                                  String url =
+                                      'https://wa.me/${snapshat.data.docs[i].data()['phone']}?text=سلام عليكم معكم مندوب عون رقم طلبك هو ${snapshat.data.docs[i].data()['requestNumber']}';
+                                  try {
+                                    if (await canLaunch(url.toString())) {
+                                      print('===============================');
+                                      print(url);
+                                      print('===============================');
+
+                                      awesomDialog(context, 'Create an account',
+                                          'wating');
+                                      launch(url.toString());
+                                      Navigator.pop(context);
+                                    } else {
+                                      awesomDialog(context, '',
+                                          'لايوجد واتساب في هذا الرقم');
+                                    }
+                                  } catch (e) {
+                                    awesomDialog(context, '', e.toString());
+                                  }
+                                })
                               ],
-                            ),
+                            )
                           )
                         ],
                       ),
@@ -193,10 +267,9 @@ class _WorkerRequestState extends State<WorkerRequest> {
     return SizedBox(
       width: 70.w,
       child: RaisedButton.icon(
-        elevation: 10,
-        padding: EdgeInsets.zero,
+          elevation: 10,
+          padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-          
               borderRadius: BorderRadius.circular(100.r)),
           color: deepGreen,
           onPressed: onPressed,

@@ -4,6 +4,7 @@ import 'package:aoun/Widget/Controller.dart';
 import 'package:aoun/Widget/Icons.dart';
 import 'package:aoun/Widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,15 +26,21 @@ class _donateWheelcharState extends State<donateWheelchar> {
   GlobalKey<FormState> key = new GlobalKey();
   CollectionReference chairCollection =
       FirebaseFirestore.instance.collection('chair');
-  var gate339Location = "https://www.google.com/maps?q=24.47088623046875,39.6141471862793&z=17&hl=en";
-  var gate309Location = "https://www.google.com/maps?q=24.4661808013916,39.608253479003906&z=17&hl=en";
-  var chair339=0 ;
+  var gate339Location =
+      "https://www.google.com/maps?q=24.47088623046875,39.6141471862793&z=17&hl=en";
+  var gate309Location =
+      "https://www.google.com/maps?q=24.4661808013916,39.608253479003906&z=17&hl=en";
+  var chair339 = 0;
+  String identity = '';
+  String username_ = '';
+  String userId;
+  CollectionReference user = FirebaseFirestore.instance.collection("user");
 
-  var chair309=0;
+  var chair309 = 0;
   @override
   void initState() {
     super.initState();
-
+    userId = FirebaseAuth.instance.currentUser.uid;
     chairCollection.get().then((value) {
       //gateNumber
       if (value.docs.isNotEmpty) {
@@ -50,12 +57,23 @@ class _donateWheelcharState extends State<donateWheelchar> {
         });
       }
     });
+
+    user.where("userID", isEqualTo: userId).get().then((value) {
+      value.docs.forEach((element) {
+        setState(() {
+          identity = element.data()['identity'];
+          username_ = element.data()['name'];
+        });
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    print('309= $chair309');
-    print('339= $chair339');
+    print('name: $username_');
+    print('identity: $identity');
+    // print(chair309);
+    // print(chair339);
     return Scaffold(
         body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -79,11 +97,22 @@ class _donateWheelcharState extends State<donateWheelchar> {
               SizedBox(height: 10.h),
               drowButtoms(context, "رفع الطلب", 12, white, () {
                 if (key.currentState.validate()) {
-                  if (chair309 > chair339) {
-                    goToLocaton(gate339Location, "Thank339");
-                  } else {
+                 
+                  awesomDialog(context, 'Create an account', 'wating');
+                  FirebaseFirestore.instance
+                      .collection("donateWheelchairRequest")
+                      .add({
+                    'name': username_,
+                    'chairNumber': chairnNumberController.text,
+                    'identity': identity,
+                  }).then((value){
+                    Navigator.pop(context);
+                     if (chair339 > chair309) {
                     goToLocaton(gate309Location, "Thank309");
+                  } else {
+                    goToLocaton(gate339Location, "Thank339");
                   }
+                  });
                 }
               }, backgrounColor: deepGreen),
               SizedBox(
@@ -109,14 +138,13 @@ class _donateWheelcharState extends State<donateWheelchar> {
     }, yesFunction: () async {
       try {
         if (await canLaunch(gatelocation)) {
-      
           launch(gatelocation.toString());
           Navigator.pop(context);
         } else {
-          //(context, 'Create an account', e.toString());
+          print("----------------can not launch location------------------");
         }
       } catch (e) {
-        //awesomDialog(context, 'Create an account', e.toString());
+        print("----------------${e.toString()}------------------");
       }
     });
   }
