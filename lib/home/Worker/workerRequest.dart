@@ -35,16 +35,7 @@ CollectionReference chairCollection =
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          // decoration: BoxDecoration(
-          //   image: DecorationImage(
-          // image: AssetImage(
-          //   welcomImage,
-          // ),
-          // fit: BoxFit.cover,
-          // colorFilter:
-          //     ColorFilter.mode(Colors.black54, BlendMode.darken)
-          // ),
-          // ),
+          
           child: Column(
             children: [
               SizedBox(height: 20.h),
@@ -163,7 +154,7 @@ CollectionReference chairCollection =
                                    awesomDialog(context, 'Create an account',
                                           'wating');
                                  await FirebaseFirestore.instance.collection("messege").add({
-                                   'masseg':'نعتزر منك لم يتم قبول طلبك في الوقت الحالي',
+                                   'masseg':'نعتذر منك لم يتم قبول طلبك في الوقت الحالي',
                                    'date':"${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
                                    'time':"${DateTime.now().hour} : ${DateTime.now().minute}",
                                    'userId':  snapshat.data.docs[i].data()['userId'],

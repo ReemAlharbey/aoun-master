@@ -41,7 +41,7 @@ class _userHomePageState extends State<userHomePage> {
     
             BottomNavigationBarItem(
               icon: Icon(Icons.wheelchair_pickup),
-              label: "اتبرع بكرسي",
+              label: "تبرع بكرسي",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.accessible),
@@ -67,4 +67,3 @@ class _userHomePageState extends State<userHomePage> {
   }
 }
 
-//"${snapshat.data.docs[i].data()['ordersName'][j]}"

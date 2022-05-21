@@ -26,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
             
             ),
             fit: BoxFit.cover,
-           colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken)),
+          colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken)),
           ),
           child: Center(
             child: SingleChildScrollView(

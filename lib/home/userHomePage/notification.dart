@@ -31,7 +31,7 @@ class _notificationState extends State<notification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       drawer: drawer(context),
+      drawer: drawer(context),
       appBar: AppBar(
           title: drowText(context, "الاشعارات", 15),
           centerTitle: true,
@@ -42,7 +42,8 @@ class _notificationState extends State<notification> {
         //color: green,
         child: StreamBuilder(
             stream: messegeCollection
-                .where("userId", isEqualTo: userId).orderBy('createOn', descending: true)
+                .where("userId", isEqualTo: userId)
+                .orderBy('createOn', descending: true)
                 .snapshots(),
             builder: (BuildContext context, AsyncSnapshot snapshat) {
               if (snapshat.hasError) {
@@ -85,7 +86,9 @@ class _notificationState extends State<notification> {
                       child: Column(
                         children: [
                           getData(
-                             '${snapshat.data.docs[i].data()['masseg']}','${snapshat.data.docs[i].data()['date']} -'+' ${snapshat.data.docs[i].data()['time']}'),
+                              '${snapshat.data.docs[i].data()['masseg']}',
+                              '${snapshat.data.docs[i].data()['date']} -' +
+                                  ' ${snapshat.data.docs[i].data()['time']}'),
                           SizedBox(height: 5.w),
                         ],
                       ),
@@ -98,17 +101,16 @@ class _notificationState extends State<notification> {
   }
 
 //get data from database--------------------------------------
-  Widget getData(text,String subtitle) {
+  Widget getData(text, String subtitle) {
     return Expanded(
       child: ListTile(
-        title: drowText(context, text, 12, color: black),
-        leading: CircleAvatar(
-          radius: 20.r,
-          backgroundColor: deepGreen,
-          child: Center(child: Icon(notificationsIcon)),
-        ),
-        subtitle: drowText(context, subtitle, 12,color: deepGreen)
-      ),
+          title: drowText(context, text, 12, color: black),
+          leading: CircleAvatar(
+            radius: 20.r,
+            backgroundColor: deepGreen,
+            child: Center(child: Icon(notificationsIcon)),
+          ),
+          subtitle: drowText(context, subtitle, 12, color: deepGreen)),
     );
   }
 }

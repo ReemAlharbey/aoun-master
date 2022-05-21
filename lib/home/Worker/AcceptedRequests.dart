@@ -40,12 +40,7 @@ class _AcceptedRequestsState extends State<AcceptedRequests> {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-            // image: DecorationImage(
-            //     image: AssetImage(
-            //       welcomImage,
-            //     ),
-            //     fit: BoxFit.cover,
-            //     colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken)),
+            
             ),
         child: StreamBuilder(
             stream: acceptRequestCollection.snapshots(),

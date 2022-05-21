@@ -72,8 +72,8 @@ class _donateWheelcharState extends State<donateWheelchar> {
   Widget build(BuildContext context) {
     print('name: $username_');
     print('identity: $identity');
-    // print(chair309);
-    // print(chair339);
+   //print(chair309);
+  // print(chair339);
     return Scaffold(
        drawer: drawer(context),
       appBar: AppBar(

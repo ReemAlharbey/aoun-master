@@ -134,7 +134,7 @@ class _ManageUserState extends State<ManageUser> {
                     EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 5.h),
                 child: Icon(Icons.delete, color: Colors.white, size: 36.sp),
               ),
-              drowText(context, "خذف المستخدم", 12.3,
+              drowText(context, "حذف المستخدم", 12.3,
                   fontWeight: FontWeight.bold, color: white)
             ],
           ),
